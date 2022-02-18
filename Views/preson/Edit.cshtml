@@ -1,0 +1,82 @@
+@using MVC2.Utilities;
+@using MVC2.Enums;
+
+@model MVC2.Models.PersonModel
+@{
+    ViewData["Title"] = "Edit members";
+}
+
+<div>
+    <h1 class="display-4 text-center">Edit Member</h1>
+
+    @using (Html.BeginForm("Edit", "People", FormMethod.Post, new { @id = "Edit" }))
+    {
+        <div class="form-group">
+            <label for="Id">ID: </label>
+            <input type="text" class="form-control" id="Id" name="Id" value="@Model.Id" readonly/>
+        </div>
+
+        <div class="form-group">
+            <label for="firstName">First Name: </label>
+            <input type="text" class="form-control" id="firstName" name="firstName" value="@Model.FirstName" />
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name: </label>
+            <input type="text" class="form-control" id="lastName" name="lastName" value="@Model.LastName" />
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender: </label>
+            @Html.DropDownListFor(m => m.Gender, new SelectList(Enum.GetValues(typeof(@Gender)), Model.Gender), new {
+        @class="form-select"})
+        </div>
+
+        <div class="form-group">
+            <label for="dateOfBirth">Date Of Birth </label>
+            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="dd/mm/yyyy"
+            value="@DateAgeUtility.dateToYMD(@Model.DateOfBirth)" />
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number: </label>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}"
+            value="@Model.PhoneNumber" />
+        </div>
+
+        <div class="form-group">
+            <label for="birthPlace">Birth Place: </label>
+            <input type="text" class="form-control" id="birthPlace" name="birthPlace" value="@Model.BirthPlace" />
+        </div>
+
+        <div class="form-group">
+            <label>Have you graduated? </label>
+            <div class="form-check">
+                @Html.RadioButtonFor(m => m.IsGraduated,"Yes")
+                <label for="Yes">Yes</label>
+                @Html.RadioButtonFor(m => m.IsGraduated,"No")
+                <label for="No">No</label>
+            </div>
+        </div>
+
+        <button type="submit" value="Edit" class="btn btn-primary">Confirm Edit</button>
+
+    }
+
+    @using (Html.BeginForm("DeletePerson", "People", FormMethod.Post, new { @id = "Delete" }))
+    {
+        @Html.HiddenFor(modelItem => Model.Id)
+        <button type="submit" value="@Model" class="btn btn-danger">Delete</button>
+    }
+
+    <p>
+        @Html.ActionLink("Return to list", "Members")
+    </p>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("body").on("submit", "#Delete", function () {
+            return confirm("Do you want to submit?");
+        });
+    </script>
+</div>

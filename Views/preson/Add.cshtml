@@ -1,0 +1,62 @@
+@using MVC2.Enums;
+@model MVC2.Models.PersonModel
+@{
+    ViewData["Title"] = "Add members";
+}
+
+<div>
+    <h1 class="display-4 text-center">Add New Member</h1>
+
+    <form class="form-horizontal" action="Add" method="post">
+        <div class="form-group">
+            <label for="firstName">First Name: </label>
+            <input type="text" class="form-control" id="firstName" name="firstName" />
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name: </label>
+            <input type="text" class="form-control" id="lastName" name="lastName" />
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender: </label>
+            <select class="form-control" name="gender" id="gender">
+                <option value="" selected disabled hidden>Please select a gender</option>
+                <option value="None">None</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date Of Birth </label>
+            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" />
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number: </label>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" />
+        </div>
+
+        <div class="form-group">
+            <label for="birthPlace">Birth Place: </label>
+            <input type="text" class="form-control" id="birthPlace" name="birthPlace" />
+        </div>
+
+        <div class="form-group">
+            <label>Have you graduated? </label>
+            <div class="form-check">
+                <input type="radio" id="yes" name="isGraduated" value="Yes" />
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="isGraduated" value="No" />
+                <label for="no">No</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <p>
+        @Html.ActionLink("Return to list", "Members")
+    </p>
+</div>
